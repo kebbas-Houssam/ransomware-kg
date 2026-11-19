@@ -1,0 +1,10 @@
+-r requirements.txt
+pymupdf==2.1
+sentence-transformers==6.3.0
+faiss-cpu==1.16.0
+PyYAML==6.0.3
+requests==2.34.2
+python-dotenv==1.2.4
+# optional LLM backends (only if LLM_PROVIDER is set to them):
+# anthropic
+# openai

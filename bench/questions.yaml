@@ -1,0 +1,109 @@
+# Benchmark questions. Every expected value can be checked in data/papers.csv
+# or data/results.csv (column given in `source`).
+# `expected`: all items must appear in the answer; an item that is a list
+# means "any of these". Numbers match with "." or "," and trailing zeros.
+
+- id: q01
+  lang: en
+  type: factual
+  question: What accuracy does Kebbas et al. (2025) report on the DeftPunk dataset?
+  expected: ["92.87"]
+  source: results.csv kebbas2025 accuracy
+
+- id: q02
+  lang: fr
+  type: factual
+  question: Quelle précision (precision) rapporte DeftPunk (Wang et al., OSDI 2024) sur son dataset ?
+  expected: ["95.8"]
+  source: results.csv wang2024deftpunk precision
+
+- id: q03
+  lang: en
+  type: factual
+  question: Which platform does the detector of Brodzik et al. (2024) target, and how does it collect its data?
+  expected: ["Linux", "eBPF"]
+  source: papers.csv brodzik2024 platform, data_source
+
+- id: q04
+  lang: fr
+  type: factual
+  question: Quels modèles d'apprentissage utilisent Aljabri et al. (2024) ?
+  expected: ["XGBoost", "Random Forest"]
+  source: papers.csv aljabri2024 methods
+
+- id: q05
+  lang: en
+  type: factual
+  question: Where was UNVEIL published, and what true positive rate does it report?
+  expected: ["USENIX", "96.3"]
+  source: papers.csv unveil2016 venue; results.csv true_positive_rate
+
+- id: q06
+  lang: en
+  type: counting
+  question: How many papers in the review are surveys?
+  expected: [["3", "three"]]
+  source: papers.csv role = survey (alzahrani2025, ferdous2024, diana2025)
+
+- id: q07
+  lang: fr
+  type: counting
+  question: Combien d'articles de détection reposent sur une analyse statique ?
+  expected: [["4", "quatre"]]
+  source: papers.csv analysis_type = static (baldwin2018, moreira2023, scalas2019, lee2025fpe)
+
+- id: q08
+  lang: en
+  type: counting
+  question: How many papers target the Windows platform?
+  expected: [["9", "nine"]]
+  source: papers.csv platform contains Windows
+
+- id: q09
+  lang: fr
+  type: counting
+  question: Combien d'articles de la revue ont été publiés en 2025 ?
+  expected: [["7", "sept"]]
+  source: papers.csv year = 2025
+
+- id: q10
+  lang: en
+  type: comparison
+  question: On the DeftPunk dataset, which reports the higher precision, Kebbas et al. (2025) or DeftPunk, and by how much?
+  expected: [["wang2024deftpunk", "DeftPunk"], "95.8", "70.75"]
+  source: results.csv precision rows with dataset = DeftPunk
+
+- id: q11
+  lang: fr
+  type: comparison
+  question: Quel article de détection rapporte la meilleure accuracy, et quelle est sa valeur ?
+  expected: [["scalas2019", "Scalas"], "99.6"]
+  source: results.csv max(accuracy)
+
+- id: q12
+  lang: en
+  type: comparison
+  question: Among deep-learning (DL) papers, which one reports the highest accuracy?
+  expected: [["moreira2023", "Moreira", "Xception"], "98.2"]
+  source: papers.csv method_family = DL; results.csv accuracy
+
+- id: q13
+  lang: en
+  type: why
+  question: Why is the approach of Lee et al. (2025) described as counter-evasion? Which attacker technique does it target?
+  expected: [["format-preserving", "FPE"]]
+  source: papers.csv lee2025fpe approach, title
+
+- id: q14
+  lang: fr
+  type: why
+  question: Pourquoi l'approche de Kebbas et al. (2025) est-elle qualifiée d'hybride ?
+  expected: ["CNN-LSTM", "XGBoost"]
+  source: papers.csv kebbas2025 methods, method_family
+
+- id: q15
+  lang: en
+  type: why
+  question: Why is the 96.18% accuracy of ERW-Radar not directly comparable with the other accuracies?
+  expected: ["evasive"]
+  source: results.csv zhao2025erw condition
