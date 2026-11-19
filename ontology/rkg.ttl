@@ -134,7 +134,8 @@ rkg:onDataset a owl:ObjectProperty ;
 # Datatype properties
 #################################################################
 # Reused as-is: dct:title (paper title), dct:issued (xsd:gYear),
-# dct:source (provenance of a result), rdfs:label (names).
+# dct:source (provenance of a result), rdfs:label (names),
+# bibo:volume / bibo:issue / bibo:identifier (venue details of a paper).
 
 rkg:value a owl:DatatypeProperty , owl:FunctionalProperty ;
     rdfs:subPropertyOf schema:value ;

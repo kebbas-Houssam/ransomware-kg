@@ -20,6 +20,8 @@ from pyshacl import validate
 from rdflib import RDF, RDFS, XSD, Graph, Literal, Namespace, URIRef
 from rdflib.namespace import DCTERMS
 
+BIBO = Namespace("http://purl.org/ontology/bibo/")
+
 ROOT = Path(__file__).resolve().parent.parent
 RKG = Namespace("https://w3id.org/rkg#")
 ID = "https://w3id.org/rkg/id/"
@@ -45,11 +47,32 @@ def split_list(cell: str) -> list[str]:
     return [i.strip() for i in items if i.strip()]
 
 
+def normalize_venue(venue: str, venue_type: str, year: str) -> tuple[str, dict[str, str]]:
+    """Split a raw venue cell into (venue name, bibliographic details).
+
+    'IEEE Access 13'      -> ('IEEE Access', {'volume': '13'})
+    'Sensors 25(8)'       -> ('Sensors', {'volume': '25', 'issue': '8'})
+    'OSDI 2024'           -> ('OSDI', {})          (conference edition = paper year)
+    'arXiv:2409.06452'    -> ('arXiv', {'identifier': 'arXiv:2409.06452'})
+    """
+    if m := re.fullmatch(r"arXiv:(\S+)", venue):
+        return "arXiv", {"identifier": venue}
+    if venue_type == "journal" and (m := re.fullmatch(r"(.+?) (\d+)(?:\((\d+)\))?", venue)):
+        details = {"volume": m[2]}
+        if m[3]:
+            details["issue"] = m[3]
+        return m[1], details
+    if venue_type == "conference" and venue.endswith(f" {year}"):
+        return venue[: -len(year) - 1], {}
+    return venue, {}
+
+
 class Builder:
     def __init__(self) -> None:
         self.g = Graph()
         self.g.bind("rkg", RKG)
         self.g.bind("dct", DCTERMS)
+        self.g.bind("bibo", BIBO)
 
     def entity(self, kind: str, cls: URIRef, label: str) -> URIRef:
         """Return the URI of a labelled entity, creating it on first use."""
@@ -76,8 +99,11 @@ class Builder:
         for name in split_list(authors):
             g.add((p, RKG.hasAuthor, self.entity("author", RKG.Author, name)))
 
-        venue = self.entity("venue", RKG.Venue, row["venue"])
+        name, details = normalize_venue(row["venue"], row["venue_type"], row["year"])
+        venue = self.entity("venue", RKG.Venue, name)
         g.add((p, RKG.publishedIn, venue))
+        for key, val in details.items():
+            g.add((p, BIBO[key], Literal(val)))
         if row["venue_type"]:
             g.set((venue, RKG.venueType, Literal(row["venue_type"])))
 

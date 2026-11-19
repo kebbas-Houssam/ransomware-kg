@@ -179,6 +179,4 @@ comparable.
 
 - Query 08 currently returns no rows. No author appears twice in
   `papers.csv`, and "et al." entries hide co-authors.
-- Venue strings are used as given, so `IEEE Access` and `IEEE Access 13` are
-  two different venues.
 - Only one dataset (DeftPunk) is named in `results.csv`.
