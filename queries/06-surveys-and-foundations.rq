@@ -1,0 +1,15 @@
+# Background literature: surveys and the foundational method papers
+# (with the method each one introduced).
+PREFIX rkg:  <https://w3id.org/rkg#>
+PREFIX dct:  <http://purl.org/dc/terms/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?role ?year ?title (GROUP_CONCAT(?m; separator=", ") AS ?methods)
+WHERE {
+  VALUES ?role { "survey" "foundational method" }
+  ?p rkg:role ?role ; dct:title ?title ; dct:issued ?y .
+  BIND(STR(?y) AS ?year)
+  OPTIONAL { ?p rkg:usesMethod/rdfs:label ?m }
+}
+GROUP BY ?role ?year ?title
+ORDER BY ?role ?year

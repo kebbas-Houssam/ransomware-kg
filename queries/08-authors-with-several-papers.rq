@@ -1,0 +1,15 @@
+# Authors who appear on more than one paper.
+# Note: for "X et al." entries only the first author is known
+# (rkg:authorListComplete false), so co-authorship is under-counted.
+PREFIX rkg:  <https://w3id.org/rkg#>
+PREFIX dct:  <http://purl.org/dc/terms/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?author (COUNT(?p) AS ?papers) (GROUP_CONCAT(?id; separator=", ") AS ?paperIds)
+WHERE {
+  ?p rkg:hasAuthor/rdfs:label ?author .
+  BIND(STRAFTER(STR(?p), "/paper/") AS ?id)
+}
+GROUP BY ?author
+HAVING (COUNT(?p) > 1)
+ORDER BY DESC(?papers) ?author

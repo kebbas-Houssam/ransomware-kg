@@ -1,0 +1,58 @@
+@prefix rkg:  <https://w3id.org/rkg#> .
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix dct:  <http://purl.org/dc/terms/> .
+
+rkg:PaperShape a sh:NodeShape ;
+    sh:targetClass rkg:Paper ;
+    sh:property [
+        sh:path dct:title ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ; sh:minLength 1 ;
+        sh:message "Every Paper has exactly one non-empty title." ] ;
+    sh:property [
+        sh:path dct:issued ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:gYear ;
+        sh:message "Every Paper has exactly one publication year (xsd:gYear)." ] ;
+    sh:property [
+        sh:path rkg:hasAuthor ; sh:minCount 1 ; sh:class rkg:Author ;
+        sh:message "Every Paper has at least one Author." ] ;
+    sh:property [
+        sh:path rkg:publishedIn ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rkg:Venue ;
+        sh:message "Every Paper is published in exactly one Venue." ] ;
+    sh:property [
+        sh:path rkg:role ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:in ( "detection" "survey" "foundational method" "malware analysis" "tool" ) ] ;
+    sh:property [ sh:path rkg:hasApproach ; sh:maxCount 1 ; sh:class rkg:Approach ] ;
+    sh:property [ sh:path rkg:methodFamily ; sh:maxCount 1 ; sh:class rkg:MethodFamily ] ;
+    sh:property [ sh:path rkg:usesMethod ; sh:class rkg:Method ] ;
+    sh:property [ sh:path rkg:analysesData ; sh:class rkg:DataSource ] ;
+    sh:property [ sh:path rkg:targetsPlatform ; sh:class rkg:Platform ] ;
+    sh:property [ sh:path rkg:reports ; sh:class rkg:Result ] .
+
+rkg:ResultShape a sh:NodeShape ;
+    sh:targetClass rkg:Result ;
+    sh:property [
+        sh:path rkg:metric ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rkg:Metric ;
+        sh:message "Every Result has exactly one Metric." ] ;
+    sh:property [
+        sh:path rkg:value ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:decimal ;
+        sh:message "Every Result has exactly one xsd:decimal value." ] ;
+    sh:property [
+        sh:path [ sh:inversePath rkg:reports ] ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rkg:Paper ;
+        sh:message "Every Result is reported by exactly one Paper." ] ;
+    sh:property [ sh:path rkg:onDataset ; sh:maxCount 1 ; sh:class rkg:Dataset ] ;
+    sh:property [ sh:path rkg:unit ; sh:maxCount 1 ; sh:datatype xsd:string ] .
+
+rkg:ApproachShape a sh:NodeShape ;
+    sh:targetClass rkg:Approach ;
+    sh:property [
+        sh:path rkg:analysisType ; sh:minCount 1 ; sh:maxCount 1 ; sh:class rkg:AnalysisType ;
+        sh:message "Every Approach is either static or dynamic (exactly one AnalysisType)." ] .
+
+rkg:LabelledShape a sh:NodeShape ;
+    sh:targetClass rkg:Author , rkg:Venue , rkg:Approach , rkg:AnalysisType , rkg:DataSource ,
+                   rkg:Platform , rkg:Method , rkg:MethodFamily , rkg:Dataset , rkg:Metric ;
+    sh:property [
+        sh:path rdfs:label ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:message "Every named entity has exactly one rdfs:label." ] .

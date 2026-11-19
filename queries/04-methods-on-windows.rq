@@ -1,0 +1,14 @@
+# Methods used by papers that target Windows, and how many such papers use each.
+PREFIX rkg:  <https://w3id.org/rkg#>
+PREFIX dct:  <http://purl.org/dc/terms/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?method (COUNT(DISTINCT ?p) AS ?papers)
+       (GROUP_CONCAT(DISTINCT ?id; separator=", ") AS ?paperIds)
+WHERE {
+  ?p rkg:targetsPlatform/rdfs:label "Windows" ;
+     rkg:usesMethod/rdfs:label ?method .
+  BIND(STRAFTER(STR(?p), "/paper/") AS ?id)
+}
+GROUP BY ?method
+ORDER BY DESC(?papers) ?method

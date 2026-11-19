@@ -1,0 +1,21 @@
+# Papers whose detector consumes I/O data (file, block or storage I/O).
+PREFIX rkg:  <https://w3id.org/rkg#>
+PREFIX dct:  <http://purl.org/dc/terms/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?paper ?year ?dataSource ?platforms
+WHERE {
+  {
+    SELECT ?p ?dataSource (GROUP_CONCAT(DISTINCT ?pl; separator=", ") AS ?platforms)
+    WHERE {
+      ?p rkg:analysesData/rdfs:label ?dataSource .
+      FILTER(CONTAINS(?dataSource, "I/O"))
+      OPTIONAL { ?p rkg:targetsPlatform/rdfs:label ?pl }
+    }
+    GROUP BY ?p ?dataSource
+  }
+  ?p dct:issued ?y .
+  BIND(STR(?y) AS ?year)
+  BIND(STRAFTER(STR(?p), "/paper/") AS ?paper)
+}
+ORDER BY ?year ?paper

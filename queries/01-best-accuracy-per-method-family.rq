@@ -1,0 +1,23 @@
+# Best reported accuracy in each method family, with the paper that reports it.
+# Only "accuracy" results are compared; other metrics are not interchangeable.
+PREFIX rkg:  <https://w3id.org/rkg#>
+PREFIX dct:  <http://purl.org/dc/terms/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?family ?paper (?v AS ?accuracy)
+WHERE {
+  {
+    SELECT ?fam (MAX(?v0) AS ?best)
+    WHERE {
+      ?p rkg:methodFamily ?fam ; rkg:reports ?r .
+      ?r rkg:metric/rdfs:label "accuracy" ; rkg:value ?v0 .
+    }
+    GROUP BY ?fam
+  }
+  ?p rkg:methodFamily ?fam ; rkg:reports ?r .
+  ?r rkg:metric/rdfs:label "accuracy" ; rkg:value ?v .
+  FILTER(?v = ?best)   # compare by value, not by term: "98.20" = 98.2
+  ?fam rdfs:label ?family .
+  BIND(STRAFTER(STR(?p), "/paper/") AS ?paper)
+}
+ORDER BY DESC(?v)

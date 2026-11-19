@@ -1,0 +1,18 @@
+services:
+  fuseki:
+    image: secoresearch/fuseki:5.1.0   # Apache Jena Fuseki 5.1.0, amd64 + arm64
+    container_name: rkg-fuseki
+    ports:
+      - "3030:3030"
+    environment:
+      ADMIN_PASSWORD: ${FUSEKI_ADMIN_PASSWORD:-admin}
+    volumes:
+      - ./fuseki/rkg.ttl:/fuseki-base/configuration/assembler.ttl:ro
+      - rkg-data:/fuseki-base/databases
+    healthcheck:
+      test: ["CMD", "bash", "-c", "exec 3<>/dev/tcp/localhost/3030"]   # image has no curl
+      interval: 5s
+      retries: 20
+
+volumes:
+  rkg-data:

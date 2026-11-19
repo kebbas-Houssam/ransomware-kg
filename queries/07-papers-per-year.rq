@@ -1,0 +1,13 @@
+# Number of papers per publication year, split into detection and other roles.
+PREFIX rkg:  <https://w3id.org/rkg#>
+PREFIX dct:  <http://purl.org/dc/terms/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?year (COUNT(?p) AS ?papers)
+       (SUM(IF(?role = "detection", 1, 0)) AS ?detection)
+WHERE {
+  ?p a rkg:Paper ; dct:issued ?y ; rkg:role ?role .
+  BIND(STR(?y) AS ?year)
+}
+GROUP BY ?year
+ORDER BY ?year

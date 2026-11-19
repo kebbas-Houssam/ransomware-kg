@@ -1,0 +1,21 @@
+# My work (kebbas2025) vs DeftPunk (wang2024deftpunk) on the DeftPunk dataset,
+# one row per metric. Empty cells = metric not reported by that paper.
+PREFIX rkg:  <https://w3id.org/rkg#>
+PREFIX dct:  <http://purl.org/dc/terms/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?metric ?kebbas2025 ?deftpunk
+WHERE {
+  ?ds a rkg:Dataset ; rdfs:label "DeftPunk" .
+  { SELECT DISTINCT ?m WHERE { ?r rkg:onDataset/rdfs:label "DeftPunk" ; rkg:metric ?m } }
+  ?m rdfs:label ?metric .
+  OPTIONAL {
+    <https://w3id.org/rkg/id/paper/kebbas2025> rkg:reports ?r1 .
+    ?r1 rkg:onDataset ?ds ; rkg:metric ?m ; rkg:value ?kebbas2025 .
+  }
+  OPTIONAL {
+    <https://w3id.org/rkg/id/paper/wang2024deftpunk> rkg:reports ?r2 .
+    ?r2 rkg:onDataset ?ds ; rkg:metric ?m ; rkg:value ?deftpunk .
+  }
+}
+ORDER BY ?metric

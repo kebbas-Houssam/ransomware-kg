@@ -1,0 +1,21 @@
+paper_id,metric,value,unit,dataset,condition,source
+unveil2016,true_positive_rate,96.3,%,,,Master thesis table 4.1
+unveil2016,false_positive_rate,0,%,,,Master thesis table 4.1
+aljabri2024,accuracy,97.85,%,,,Master thesis table 4.1
+aljabri2024,false_positive_rate,2,%,,,Master thesis table 4.1
+maazalahi2024,accuracy,99.5,%,,,Master thesis table 4.1
+baldwin2018,accuracy,96.5,%,,,Master thesis table 4.1
+moreira2023,accuracy,98.20,%,,,Master thesis table 4.1
+scalas2019,accuracy,99.6,%,,,Master thesis table 4.1
+zhao2025erw,accuracy,96.18,%,,evasive samples,Master thesis table 4.1
+lee2025fpe,precision,94.64,%,,FPE-encrypted files,Master thesis table 4.1
+brodzik2024,f1_score,95,%,,lower bound (>95%); 1453x faster inference,Master thesis table 4.1
+ispahany2025,f2_score,99.65,%,,,Master thesis table 4.1
+wang2024deftpunk,recall,100,%,DeftPunk,approximately (~100%),Master thesis table 4.1
+wang2024deftpunk,precision,95.8,%,DeftPunk,,Master thesis table 4.1
+zhou2025srdc,zero_day_improvement,4.03,% points,,improvement on zero-day detection,Master thesis table 4.1
+kebbas2025,accuracy,92.87,%,DeftPunk,5 s windows; final PSO model,Engineering thesis table 6.8
+kebbas2025,precision,70.75,%,DeftPunk,5 s windows; final PSO model,Engineering thesis table 6.8
+kebbas2025,recall,77.41,%,DeftPunk,5 s windows; final PSO model,Engineering thesis table 6.8
+kebbas2025,f2_score,75.97,%,DeftPunk,5 s windows; final PSO model,Engineering thesis table 6.8
+kebbas2025,roc_auc,95.95,%,DeftPunk,5 s windows; final PSO model,Engineering thesis table 6.8

@@ -1,0 +1,906 @@
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rkg: <https://w3id.org/rkg#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/rkg/id/paper/akbanov2019> a rkg:Paper ;
+    dct:issued "2019"^^xsd:gYear ;
+    dct:title "WannaCry Ransomware: Analysis of Infection, Persistence, Recovery Prevention and Propagation Mechanisms" ;
+    rkg:hasAuthor <https://w3id.org/rkg/id/author/maxat-akbanov>,
+        <https://w3id.org/rkg/id/author/michael-d-logothetis>,
+        <https://w3id.org/rkg/id/author/vassilios-g-vassilakis> ;
+    rkg:publishedIn <https://w3id.org/rkg/id/venue/journal-of-telecommunications-and-information-technology> ;
+    rkg:role "malware analysis" ;
+    rkg:thesisRef 1 .
+
+<https://w3id.org/rkg/id/paper/aljabri2024> a rkg:Paper ;
+    dct:issued "2024"^^xsd:gYear ;
+    dct:title "Ransomware detection based on machine learning using memory features" ;
+    rkg:analysesData <https://w3id.org/rkg/id/data-source/memory-artifacts-processes-dlls-injections> ;
+    rkg:authorListComplete false ;
+    rkg:hasApproach <https://w3id.org/rkg/id/approach/dynamic-memory-analysis> ;
+    rkg:hasAuthor <https://w3id.org/rkg/id/author/malak-aljabri> ;
+    rkg:methodFamily <https://w3id.org/rkg/id/method-family/ml> ;
+    rkg:publishedIn <https://w3id.org/rkg/id/venue/egyptian-informatics-journal-25> ;
+    rkg:reports <https://w3id.org/rkg/id/result/aljabri2024-accuracy>,
+        <https://w3id.org/rkg/id/result/aljabri2024-false-positive-rate> ;
+    rkg:role "detection" ;
+    rkg:targetsPlatform <https://w3id.org/rkg/id/platform/windows> ;
+    rkg:thesisRef 2 ;
+    rkg:usesMethod <https://w3id.org/rkg/id/method/random-forest>,
+        <https://w3id.org/rkg/id/method/xgboost> .
+
+<https://w3id.org/rkg/id/paper/alzahrani2025> a rkg:Paper ;
+    dct:issued "2025"^^xsd:gYear ;
+    dct:title "A Survey of Ransomware Detection Methods" ;
+    rkg:authorListComplete false ;
+    rkg:hasAuthor <https://w3id.org/rkg/id/author/saleh-alzahrani> ;
+    rkg:publishedIn <https://w3id.org/rkg/id/venue/ieee-access-13> ;
+    rkg:role "survey" ;
+    rkg:thesisRef 3 .
+
+<https://w3id.org/rkg/id/paper/baldwin2018> a rkg:Paper ;
+    dct:issued "2018"^^xsd:gYear ;
+    dct:title "Leveraging support vector machine for opcode density based detection of crypto-ransomware" ;
+    rkg:analysesData <https://w3id.org/rkg/id/data-source/opcode-density> ;
+    rkg:hasApproach <https://w3id.org/rkg/id/approach/static-structural> ;
+    rkg:hasAuthor <https://w3id.org/rkg/id/author/ali-dehghantanha>,
+        <https://w3id.org/rkg/id/author/james-baldwin> ;
+    rkg:methodFamily <https://w3id.org/rkg/id/method-family/ml> ;
+    rkg:publishedIn <https://w3id.org/rkg/id/venue/cyber-threat-intelligence-springer> ;
+    rkg:reports <https://w3id.org/rkg/id/result/baldwin2018-accuracy> ;
+    rkg:role "detection" ;
+    rkg:targetsPlatform <https://w3id.org/rkg/id/platform/windows> ;
+    rkg:thesisRef 4 ;
+    rkg:usesMethod <https://w3id.org/rkg/id/method/svm> .
+
+<https://w3id.org/rkg/id/paper/breiman2001> a rkg:Paper ;
+    dct:issued "2001"^^xsd:gYear ;
+    dct:title "Random Forests" ;
+    rkg:hasAuthor <https://w3id.org/rkg/id/author/leo-breiman> ;
+    rkg:methodFamily <https://w3id.org/rkg/id/method-family/ml> ;
+    rkg:publishedIn <https://w3id.org/rkg/id/venue/machine-learning-45-1> ;
+    rkg:role "foundational method" ;
+    rkg:thesisRef 5 ;
+    rkg:usesMethod <https://w3id.org/rkg/id/method/random-forest> .
+
+<https://w3id.org/rkg/id/paper/brodzik2024> a rkg:Paper ;
+    dct:issued "2024"^^xsd:gYear ;
+    dct:title "Ransomware Detection Using Machine Learning in the Linux Kernel" ;
+    rkg:analysesData <https://w3id.org/rkg/id/data-source/system-calls-via-ebpf> ;
+    rkg:authorListComplete false ;
+    rkg:hasApproach <https://w3id.org/rkg/id/approach/kernel-level-detection> ;
+    rkg:hasAuthor <https://w3id.org/rkg/id/author/adrian-brodzik> ;
+    rkg:methodFamily <https://w3id.org/rkg/id/method-family/ml> ;
+    rkg:publishedIn <https://w3id.org/rkg/id/venue/arxiv-2409-06452> ;
+    rkg:reports <https://w3id.org/rkg/id/result/brodzik2024-f1-score> ;
+    rkg:role "detection" ;
+    rkg:targetsPlatform <https://w3id.org/rkg/id/platform/linux> ;
+    rkg:thesisRef 6 ;
+    rkg:usesMethod <https://w3id.org/rkg/id/method/decision-tree>,
+        <https://w3id.org/rkg/id/method/mlp-in-ebpf> .
+
+<https://w3id.org/rkg/id/paper/chen2016> a rkg:Paper ;
+    dct:issued "2016"^^xsd:gYear ;
+    dct:title "XGBoost: A Scalable Tree Boosting System" ;
+    rkg:hasAuthor <https://w3id.org/rkg/id/author/carlos-guestrin>,
+        <https://w3id.org/rkg/id/author/tianqi-chen> ;
+    rkg:methodFamily <https://w3id.org/rkg/id/method-family/ml> ;
+    rkg:publishedIn <https://w3id.org/rkg/id/venue/kdd-2016> ;
+    rkg:role "foundational method" ;
+    rkg:thesisRef 7 ;
+    rkg:usesMethod <https://w3id.org/rkg/id/method/xgboost> .
+
+<https://w3id.org/rkg/id/paper/cortes1995> a rkg:Paper ;
+    dct:issued "1995"^^xsd:gYear ;
+    dct:title "Support-vector networks" ;
+    rkg:hasAuthor <https://w3id.org/rkg/id/author/corinna-cortes>,
+        <https://w3id.org/rkg/id/author/vladimir-vapnik> ;
+    rkg:methodFamily <https://w3id.org/rkg/id/method-family/ml> ;
+    rkg:publishedIn <https://w3id.org/rkg/id/venue/machine-learning-20-3> ;
+    rkg:role "foundational method" ;
+    rkg:thesisRef 8 ;
+    rkg:usesMethod <https://w3id.org/rkg/id/method/svm> .
+
+<https://w3id.org/rkg/id/paper/diana2025> a rkg:Paper ;
+    dct:issued "2025"^^xsd:gYear ;
+    dct:title "Overview on Intrusion Detection Systems for Computers Networking Security" ;
+    rkg:hasAuthor <https://w3id.org/rkg/id/author/davide-paolini>,
+        <https://w3id.org/rkg/id/author/lorenzo-diana>,
+        <https://w3id.org/rkg/id/author/pierpaolo-dini> ;
+    rkg:publishedIn <https://w3id.org/rkg/id/venue/computers-14-3> ;
+    rkg:role "survey" ;
+    rkg:thesisRef 9 .
+
+<https://w3id.org/rkg/id/paper/ferdous2024> a rkg:Paper ;
+    dct:issued "2024"^^xsd:gYear ;
+    dct:title "AI-based Ransomware Detection: A Comprehensive Review" ;
+    rkg:authorListComplete false ;
+    rkg:hasAuthor <https://w3id.org/rkg/id/author/jannatul-ferdous> ;
+    rkg:publishedIn <https://w3id.org/rkg/id/venue/ieee-access> ;
+    rkg:role "survey" ;
+    rkg:thesisRef 10 .
+
+<https://w3id.org/rkg/id/paper/guarnieri2012> a rkg:Paper ;
+    dct:issued "2012"^^xsd:gYear ;
+    dct:title "One Flew Over the Cuckoo's Nest: Cuckoo Sandbox" ;
+    rkg:hasAuthor <https://w3id.org/rkg/id/author/claudio-guarnieri> ;
+    rkg:publishedIn <https://w3id.org/rkg/id/venue/hitb-security-conference> ;
+    rkg:role "tool" ;
+    rkg:thesisRef 11 ;
+    rkg:usesMethod <https://w3id.org/rkg/id/method/cuckoo-sandbox> .
+
+<https://w3id.org/rkg/id/paper/hochreiter1997> a rkg:Paper ;
+    dct:issued "1997"^^xsd:gYear ;
+    dct:title "Long short-term memory" ;
+    rkg:hasAuthor <https://w3id.org/rkg/id/author/jurgen-schmidhuber>,
+        <https://w3id.org/rkg/id/author/sepp-hochreiter> ;
+    rkg:methodFamily <https://w3id.org/rkg/id/method-family/dl> ;
+    rkg:publishedIn <https://w3id.org/rkg/id/venue/neural-computation-9-8> ;
+    rkg:role "foundational method" ;
+    rkg:thesisRef 12 ;
+    rkg:usesMethod <https://w3id.org/rkg/id/method/lstm> .
+
+<https://w3id.org/rkg/id/paper/ispahany2025> a rkg:Paper ;
+    dct:issued "2025"^^xsd:gYear ;
+    dct:title "iCNN-LSTM+: A Batch-Based Incremental Ransomware Detection System Using Sysmon" ;
+    rkg:analysesData <https://w3id.org/rkg/id/data-source/sysmon-system-logs> ;
+    rkg:authorListComplete false ;
+    rkg:hasApproach <https://w3id.org/rkg/id/approach/incremental-learning> ;
+    rkg:hasAuthor <https://w3id.org/rkg/id/author/jamil-ispahany> ;
+    rkg:methodFamily <https://w3id.org/rkg/id/method-family/dl> ;
+    rkg:publishedIn <https://w3id.org/rkg/id/venue/ieee-access-13> ;
+    rkg:reports <https://w3id.org/rkg/id/result/ispahany2025-f2-score> ;
+    rkg:role "detection" ;
+    rkg:targetsPlatform <https://w3id.org/rkg/id/platform/windows> ;
+    rkg:thesisRef 13 ;
+    rkg:usesMethod <https://w3id.org/rkg/id/method/cnn-lstm-with-attention> .
+
+<https://w3id.org/rkg/id/paper/kebbas2025> a rkg:Paper ;
+    dct:issued "2025"^^xsd:gYear ;
+    dct:title "Hybrid Ransomware Detection: A PSO-Optimized Combination of CNN-LSTM and XGBoost" ;
+    rkg:analysesData <https://w3id.org/rkg/id/data-source/storage-i-o-traces-13-features-5-s-windows> ;
+    rkg:hasApproach <https://w3id.org/rkg/id/approach/hybrid-behavioral-i-o> ;
+    rkg:hasAuthor <https://w3id.org/rkg/id/author/h-bensenane>,
+        <https://w3id.org/rkg/id/author/m-s-bendella>,
+        <https://w3id.org/rkg/id/author/mohammed-houssameddine-kebbas> ;
+    rkg:methodFamily <https://w3id.org/rkg/id/method-family/hybrid> ;
+    rkg:publishedIn <https://w3id.org/rkg/id/venue/esi-sba-in-submission> ;
+    rkg:reports <https://w3id.org/rkg/id/result/kebbas2025-accuracy-deftpunk>,
+        <https://w3id.org/rkg/id/result/kebbas2025-f2-score-deftpunk>,
+        <https://w3id.org/rkg/id/result/kebbas2025-precision-deftpunk>,
+        <https://w3id.org/rkg/id/result/kebbas2025-recall-deftpunk>,
+        <https://w3id.org/rkg/id/result/kebbas2025-roc-auc-deftpunk> ;
+    rkg:role "detection" ;
+    rkg:targetsPlatform <https://w3id.org/rkg/id/platform/cloud>,
+        <https://w3id.org/rkg/id/platform/windows> ;
+    rkg:usesMethod <https://w3id.org/rkg/id/method/cnn-lstm-attention-xgboost-pso> .
+
+<https://w3id.org/rkg/id/paper/lecun1998> a rkg:Paper ;
+    dct:issued "1998"^^xsd:gYear ;
+    dct:title "Gradient-based learning applied to document recognition" ;
+    rkg:authorListComplete false ;
+    rkg:hasAuthor <https://w3id.org/rkg/id/author/yann-lecun> ;
+    rkg:methodFamily <https://w3id.org/rkg/id/method-family/dl> ;
+    rkg:publishedIn <https://w3id.org/rkg/id/venue/proceedings-of-the-ieee-86-11> ;
+    rkg:role "foundational method" ;
+    rkg:thesisRef 15 ;
+    rkg:usesMethod <https://w3id.org/rkg/id/method/cnn> .
+
+<https://w3id.org/rkg/id/paper/lee2025fpe> a rkg:Paper ;
+    dct:issued "2025"^^xsd:gYear ;
+    dct:title "A Machine Learning-Based Ransomware Detection Method for Attackers' Neutralization Techniques Using Format-Preserving Encryption" ;
+    rkg:analysesData <https://w3id.org/rkg/id/data-source/file-entropy>,
+        <https://w3id.org/rkg/id/data-source/metadata-mac-times> ;
+    rkg:authorListComplete false ;
+    rkg:hasApproach <https://w3id.org/rkg/id/approach/counter-evasion-fpe> ;
+    rkg:hasAuthor <https://w3id.org/rkg/id/author/jaehyuk-lee> ;
+    rkg:methodFamily <https://w3id.org/rkg/id/method-family/ml> ;
+    rkg:publishedIn <https://w3id.org/rkg/id/venue/sensors-25-8> ;
+    rkg:reports <https://w3id.org/rkg/id/result/lee2025fpe-precision> ;
+    rkg:role "detection" ;
+    rkg:targetsPlatform <https://w3id.org/rkg/id/platform/windows> ;
+    rkg:thesisRef 16 ;
+    rkg:usesMethod <https://w3id.org/rkg/id/method/knn>,
+        <https://w3id.org/rkg/id/method/random-forest> .
+
+<https://w3id.org/rkg/id/paper/maazalahi2024> a rkg:Paper ;
+    dct:issued "2024"^^xsd:gYear ;
+    dct:title "A Hybrid Machine Learning Approach and Genetic Algorithm for Malware Detection" ;
+    rkg:analysesData <https://w3id.org/rkg/id/data-source/network-flows> ;
+    rkg:hasApproach <https://w3id.org/rkg/id/approach/hybrid-ml-general-malware> ;
+    rkg:hasAuthor <https://w3id.org/rkg/id/author/mahdieh-maazalahi>,
+        <https://w3id.org/rkg/id/author/soodeh-hosseini> ;
+    rkg:methodFamily <https://w3id.org/rkg/id/method-family/hybrid> ;
+    rkg:publishedIn <https://w3id.org/rkg/id/venue/journal-of-ai-and-data-mining-12-1> ;
+    rkg:reports <https://w3id.org/rkg/id/result/maazalahi2024-accuracy> ;
+    rkg:role "detection" ;
+    rkg:targetsPlatform <https://w3id.org/rkg/id/platform/network> ;
+    rkg:thesisRef 17 ;
+    rkg:usesMethod <https://w3id.org/rkg/id/method/ga-k-means>,
+        <https://w3id.org/rkg/id/method/sa-svm-feature-selection> .
+
+<https://w3id.org/rkg/id/paper/moreira2023> a rkg:Paper ;
+    dct:issued "2023"^^xsd:gYear ;
+    dct:title "Improving ransomware detection based on portable executable header using Xception convolutional neural network" ;
+    rkg:analysesData <https://w3id.org/rkg/id/data-source/pe-header-as-image> ;
+    rkg:hasApproach <https://w3id.org/rkg/id/approach/static-computer-vision> ;
+    rkg:hasAuthor <https://w3id.org/rkg/id/author/caio-c-moreira>,
+        <https://w3id.org/rkg/id/author/cesar-de-sousa-sales>,
+        <https://w3id.org/rkg/id/author/daniel-c-moreira> ;
+    rkg:methodFamily <https://w3id.org/rkg/id/method-family/dl> ;
+    rkg:publishedIn <https://w3id.org/rkg/id/venue/computers-security-130> ;
+    rkg:reports <https://w3id.org/rkg/id/result/moreira2023-accuracy> ;
+    rkg:role "detection" ;
+    rkg:targetsPlatform <https://w3id.org/rkg/id/platform/windows> ;
+    rkg:thesisRef 18 ;
+    rkg:usesMethod <https://w3id.org/rkg/id/method/cnn-xception> .
+
+<https://w3id.org/rkg/id/paper/scalas2019> a rkg:Paper ;
+    dct:issued "2019"^^xsd:gYear ;
+    dct:title "On the Effectiveness of System API-Related Information for Android Ransomware Detection" ;
+    rkg:analysesData <https://w3id.org/rkg/id/data-source/api-calls>,
+        <https://w3id.org/rkg/id/data-source/intents>,
+        <https://w3id.org/rkg/id/data-source/permissions> ;
+    rkg:authorListComplete false ;
+    rkg:hasApproach <https://w3id.org/rkg/id/approach/static-android> ;
+    rkg:hasAuthor <https://w3id.org/rkg/id/author/michele-scalas> ;
+    rkg:methodFamily <https://w3id.org/rkg/id/method-family/ml> ;
+    rkg:publishedIn <https://w3id.org/rkg/id/venue/arxiv-1805-09563> ;
+    rkg:reports <https://w3id.org/rkg/id/result/scalas2019-accuracy> ;
+    rkg:role "detection" ;
+    rkg:targetsPlatform <https://w3id.org/rkg/id/platform/android> ;
+    rkg:thesisRef 19 ;
+    rkg:usesMethod <https://w3id.org/rkg/id/method/random-forest> .
+
+<https://w3id.org/rkg/id/paper/sikorski2012> a rkg:Paper ;
+    dct:issued "2012"^^xsd:gYear ;
+    dct:title "Anti-Disassembly, Anti-Debugging, and Anti-Virtual Machine Techniques (Practical Malware Analysis, ch. 20)" ;
+    rkg:hasAuthor <https://w3id.org/rkg/id/author/andrew-honig>,
+        <https://w3id.org/rkg/id/author/michael-sikorski> ;
+    rkg:publishedIn <https://w3id.org/rkg/id/venue/no-starch-press> ;
+    rkg:role "malware analysis" ;
+    rkg:thesisRef 20 .
+
+<https://w3id.org/rkg/id/paper/unveil2016> a rkg:Paper ;
+    dct:issued "2016"^^xsd:gYear ;
+    dct:title "UNVEIL: A Large-Scale, Automated Approach to Detecting Ransomware" ;
+    rkg:analysesData <https://w3id.org/rkg/id/data-source/desktop-changes>,
+        <https://w3id.org/rkg/id/data-source/entropy>,
+        <https://w3id.org/rkg/id/data-source/file-i-o-patterns> ;
+    rkg:authorListComplete false ;
+    rkg:hasApproach <https://w3id.org/rkg/id/approach/dynamic-behavioral> ;
+    rkg:hasAuthor <https://w3id.org/rkg/id/author/amin-kharraz> ;
+    rkg:methodFamily <https://w3id.org/rkg/id/method-family/heuristic> ;
+    rkg:publishedIn <https://w3id.org/rkg/id/venue/usenix-security-2016> ;
+    rkg:reports <https://w3id.org/rkg/id/result/unveil2016-false-positive-rate>,
+        <https://w3id.org/rkg/id/result/unveil2016-true-positive-rate> ;
+    rkg:role "detection" ;
+    rkg:targetsPlatform <https://w3id.org/rkg/id/platform/windows> ;
+    rkg:thesisRef 14 ;
+    rkg:usesMethod <https://w3id.org/rkg/id/method/heuristics>,
+        <https://w3id.org/rkg/id/method/ssim> .
+
+<https://w3id.org/rkg/id/paper/wang2024deftpunk> a rkg:Paper ;
+    dct:issued "2024"^^xsd:gYear ;
+    dct:title "Ransom Access Memories: Achieving Practical Ransomware Protection in Cloud with DeftPunk" ;
+    rkg:analysesData <https://w3id.org/rkg/id/data-source/block-i-o-war-patterns-lba-statistics> ;
+    rkg:authorListComplete false ;
+    rkg:hasApproach <https://w3id.org/rkg/id/approach/cloud-block-level-detection> ;
+    rkg:hasAuthor <https://w3id.org/rkg/id/author/zhongyu-wang> ;
+    rkg:methodFamily <https://w3id.org/rkg/id/method-family/ml> ;
+    rkg:publishedIn <https://w3id.org/rkg/id/venue/osdi-2024> ;
+    rkg:reports <https://w3id.org/rkg/id/result/wang2024deftpunk-precision-deftpunk>,
+        <https://w3id.org/rkg/id/result/wang2024deftpunk-recall-deftpunk> ;
+    rkg:role "detection" ;
+    rkg:targetsPlatform <https://w3id.org/rkg/id/platform/cloud> ;
+    rkg:thesisRef 21 ;
+    rkg:usesMethod <https://w3id.org/rkg/id/method/decision-tree-xgboost> .
+
+<https://w3id.org/rkg/id/paper/zhao2025erw> a rkg:Paper ;
+    dct:issued "2025"^^xsd:gYear ;
+    dct:title "ERW-Radar: An Adaptive Detection System against Evasive Ransomware by Contextual Behavior Detection and Fine-grained Content Analysis" ;
+    rkg:analysesData <https://w3id.org/rkg/id/data-source/content-analysis-chi2>,
+        <https://w3id.org/rkg/id/data-source/contextual-i-o-correlation> ;
+    rkg:authorListComplete false ;
+    rkg:hasApproach <https://w3id.org/rkg/id/approach/evasive-behavioral> ;
+    rkg:hasAuthor <https://w3id.org/rkg/id/author/lingbo-zhao> ;
+    rkg:methodFamily <https://w3id.org/rkg/id/method-family/hybrid> ;
+    rkg:publishedIn <https://w3id.org/rkg/id/venue/ndss-2025> ;
+    rkg:reports <https://w3id.org/rkg/id/result/zhao2025erw-accuracy> ;
+    rkg:role "detection" ;
+    rkg:targetsPlatform <https://w3id.org/rkg/id/platform/windows> ;
+    rkg:thesisRef 22 ;
+    rkg:usesMethod <https://w3id.org/rkg/id/method/random-forest>,
+        <https://w3id.org/rkg/id/method/transformer-like> .
+
+<https://w3id.org/rkg/id/paper/zhou2025srdc> a rkg:Paper ;
+    dct:issued "2025"^^xsd:gYear ;
+    dct:title "SRDC: Semantics-based Ransomware Detection and Classification with LLM-assisted Pre-training" ;
+    rkg:analysesData <https://w3id.org/rkg/id/data-source/api-call-sequences-as-language> ;
+    rkg:authorListComplete false ;
+    rkg:hasApproach <https://w3id.org/rkg/id/approach/semantic-llm> ;
+    rkg:hasAuthor <https://w3id.org/rkg/id/author/ce-zhou> ;
+    rkg:methodFamily <https://w3id.org/rkg/id/method-family/llm> ;
+    rkg:publishedIn <https://w3id.org/rkg/id/venue/aaai-2025> ;
+    rkg:reports <https://w3id.org/rkg/id/result/zhou2025srdc-zero-day-improvement> ;
+    rkg:role "detection" ;
+    rkg:targetsPlatform <https://w3id.org/rkg/id/platform/windows> ;
+    rkg:thesisRef 23 ;
+    rkg:usesMethod <https://w3id.org/rkg/id/method/llm-gpt-2-pre-trained> .
+
+<https://w3id.org/rkg/id/approach/cloud-block-level-detection> a rkg:Approach ;
+    rdfs:label "Cloud block-level detection" ;
+    rkg:analysisType <https://w3id.org/rkg/id/analysis-type/dynamic> .
+
+<https://w3id.org/rkg/id/approach/counter-evasion-fpe> a rkg:Approach ;
+    rdfs:label "Counter-evasion (FPE)" ;
+    rkg:analysisType <https://w3id.org/rkg/id/analysis-type/static> .
+
+<https://w3id.org/rkg/id/approach/dynamic-behavioral> a rkg:Approach ;
+    rdfs:label "Dynamic behavioral" ;
+    rkg:analysisType <https://w3id.org/rkg/id/analysis-type/dynamic> .
+
+<https://w3id.org/rkg/id/approach/dynamic-memory-analysis> a rkg:Approach ;
+    rdfs:label "Dynamic memory analysis" ;
+    rkg:analysisType <https://w3id.org/rkg/id/analysis-type/dynamic> .
+
+<https://w3id.org/rkg/id/approach/evasive-behavioral> a rkg:Approach ;
+    rdfs:label "Evasive behavioral" ;
+    rkg:analysisType <https://w3id.org/rkg/id/analysis-type/dynamic> .
+
+<https://w3id.org/rkg/id/approach/hybrid-behavioral-i-o> a rkg:Approach ;
+    rdfs:label "Hybrid behavioral (I/O)" ;
+    rkg:analysisType <https://w3id.org/rkg/id/analysis-type/dynamic> .
+
+<https://w3id.org/rkg/id/approach/hybrid-ml-general-malware> a rkg:Approach ;
+    rdfs:label "Hybrid ML (general malware)" ;
+    rkg:analysisType <https://w3id.org/rkg/id/analysis-type/dynamic> .
+
+<https://w3id.org/rkg/id/approach/incremental-learning> a rkg:Approach ;
+    rdfs:label "Incremental learning" ;
+    rkg:analysisType <https://w3id.org/rkg/id/analysis-type/dynamic> .
+
+<https://w3id.org/rkg/id/approach/kernel-level-detection> a rkg:Approach ;
+    rdfs:label "Kernel-level detection" ;
+    rkg:analysisType <https://w3id.org/rkg/id/analysis-type/dynamic> .
+
+<https://w3id.org/rkg/id/approach/semantic-llm> a rkg:Approach ;
+    rdfs:label "Semantic (LLM)" ;
+    rkg:analysisType <https://w3id.org/rkg/id/analysis-type/dynamic> .
+
+<https://w3id.org/rkg/id/approach/static-android> a rkg:Approach ;
+    rdfs:label "Static (Android)" ;
+    rkg:analysisType <https://w3id.org/rkg/id/analysis-type/static> .
+
+<https://w3id.org/rkg/id/approach/static-computer-vision> a rkg:Approach ;
+    rdfs:label "Static (computer vision)" ;
+    rkg:analysisType <https://w3id.org/rkg/id/analysis-type/static> .
+
+<https://w3id.org/rkg/id/approach/static-structural> a rkg:Approach ;
+    rdfs:label "Static structural" ;
+    rkg:analysisType <https://w3id.org/rkg/id/analysis-type/static> .
+
+<https://w3id.org/rkg/id/author/adrian-brodzik> a rkg:Author ;
+    rdfs:label "Adrian Brodzik" .
+
+<https://w3id.org/rkg/id/author/ali-dehghantanha> a rkg:Author ;
+    rdfs:label "Ali Dehghantanha" .
+
+<https://w3id.org/rkg/id/author/amin-kharraz> a rkg:Author ;
+    rdfs:label "Amin Kharraz" .
+
+<https://w3id.org/rkg/id/author/andrew-honig> a rkg:Author ;
+    rdfs:label "Andrew Honig" .
+
+<https://w3id.org/rkg/id/author/caio-c-moreira> a rkg:Author ;
+    rdfs:label "Caio C. Moreira" .
+
+<https://w3id.org/rkg/id/author/carlos-guestrin> a rkg:Author ;
+    rdfs:label "Carlos Guestrin" .
+
+<https://w3id.org/rkg/id/author/ce-zhou> a rkg:Author ;
+    rdfs:label "Ce Zhou" .
+
+<https://w3id.org/rkg/id/author/cesar-de-sousa-sales> a rkg:Author ;
+    rdfs:label "César de Sousa Sales" .
+
+<https://w3id.org/rkg/id/author/claudio-guarnieri> a rkg:Author ;
+    rdfs:label "Claudio Guarnieri" .
+
+<https://w3id.org/rkg/id/author/corinna-cortes> a rkg:Author ;
+    rdfs:label "Corinna Cortes" .
+
+<https://w3id.org/rkg/id/author/daniel-c-moreira> a rkg:Author ;
+    rdfs:label "Daniel C. Moreira" .
+
+<https://w3id.org/rkg/id/author/davide-paolini> a rkg:Author ;
+    rdfs:label "Davide Paolini" .
+
+<https://w3id.org/rkg/id/author/h-bensenane> a rkg:Author ;
+    rdfs:label "H. Bensenane" .
+
+<https://w3id.org/rkg/id/author/jaehyuk-lee> a rkg:Author ;
+    rdfs:label "Jaehyuk Lee" .
+
+<https://w3id.org/rkg/id/author/james-baldwin> a rkg:Author ;
+    rdfs:label "James Baldwin" .
+
+<https://w3id.org/rkg/id/author/jamil-ispahany> a rkg:Author ;
+    rdfs:label "Jamil Ispahany" .
+
+<https://w3id.org/rkg/id/author/jannatul-ferdous> a rkg:Author ;
+    rdfs:label "Jannatul Ferdous" .
+
+<https://w3id.org/rkg/id/author/jurgen-schmidhuber> a rkg:Author ;
+    rdfs:label "Jürgen Schmidhuber" .
+
+<https://w3id.org/rkg/id/author/leo-breiman> a rkg:Author ;
+    rdfs:label "Leo Breiman" .
+
+<https://w3id.org/rkg/id/author/lingbo-zhao> a rkg:Author ;
+    rdfs:label "Lingbo Zhao" .
+
+<https://w3id.org/rkg/id/author/lorenzo-diana> a rkg:Author ;
+    rdfs:label "Lorenzo Diana" .
+
+<https://w3id.org/rkg/id/author/m-s-bendella> a rkg:Author ;
+    rdfs:label "M. S. Bendella" .
+
+<https://w3id.org/rkg/id/author/mahdieh-maazalahi> a rkg:Author ;
+    rdfs:label "Mahdieh Maazalahi" .
+
+<https://w3id.org/rkg/id/author/malak-aljabri> a rkg:Author ;
+    rdfs:label "Malak Aljabri" .
+
+<https://w3id.org/rkg/id/author/maxat-akbanov> a rkg:Author ;
+    rdfs:label "Maxat Akbanov" .
+
+<https://w3id.org/rkg/id/author/michael-d-logothetis> a rkg:Author ;
+    rdfs:label "Michael D. Logothetis" .
+
+<https://w3id.org/rkg/id/author/michael-sikorski> a rkg:Author ;
+    rdfs:label "Michael Sikorski" .
+
+<https://w3id.org/rkg/id/author/michele-scalas> a rkg:Author ;
+    rdfs:label "Michele Scalas" .
+
+<https://w3id.org/rkg/id/author/mohammed-houssameddine-kebbas> a rkg:Author ;
+    rdfs:label "Mohammed Houssameddine Kebbas" .
+
+<https://w3id.org/rkg/id/author/pierpaolo-dini> a rkg:Author ;
+    rdfs:label "Pierpaolo Dini" .
+
+<https://w3id.org/rkg/id/author/saleh-alzahrani> a rkg:Author ;
+    rdfs:label "Saleh Alzahrani" .
+
+<https://w3id.org/rkg/id/author/sepp-hochreiter> a rkg:Author ;
+    rdfs:label "Sepp Hochreiter" .
+
+<https://w3id.org/rkg/id/author/soodeh-hosseini> a rkg:Author ;
+    rdfs:label "Soodeh Hosseini" .
+
+<https://w3id.org/rkg/id/author/tianqi-chen> a rkg:Author ;
+    rdfs:label "Tianqi Chen" .
+
+<https://w3id.org/rkg/id/author/vassilios-g-vassilakis> a rkg:Author ;
+    rdfs:label "Vassilios G. Vassilakis" .
+
+<https://w3id.org/rkg/id/author/vladimir-vapnik> a rkg:Author ;
+    rdfs:label "Vladimir Vapnik" .
+
+<https://w3id.org/rkg/id/author/yann-lecun> a rkg:Author ;
+    rdfs:label "Yann LeCun" .
+
+<https://w3id.org/rkg/id/author/zhongyu-wang> a rkg:Author ;
+    rdfs:label "Zhongyu Wang" .
+
+<https://w3id.org/rkg/id/data-source/api-call-sequences-as-language> a rkg:DataSource ;
+    rdfs:label "API call sequences as language" .
+
+<https://w3id.org/rkg/id/data-source/api-calls> a rkg:DataSource ;
+    rdfs:label "API calls" .
+
+<https://w3id.org/rkg/id/data-source/block-i-o-war-patterns-lba-statistics> a rkg:DataSource ;
+    rdfs:label "block I/O (WAR patterns; LBA statistics)" .
+
+<https://w3id.org/rkg/id/data-source/content-analysis-chi2> a rkg:DataSource ;
+    rdfs:label "content analysis (chi2)" .
+
+<https://w3id.org/rkg/id/data-source/contextual-i-o-correlation> a rkg:DataSource ;
+    rdfs:label "contextual I/O correlation" .
+
+<https://w3id.org/rkg/id/data-source/desktop-changes> a rkg:DataSource ;
+    rdfs:label "desktop changes" .
+
+<https://w3id.org/rkg/id/data-source/entropy> a rkg:DataSource ;
+    rdfs:label "entropy" .
+
+<https://w3id.org/rkg/id/data-source/file-entropy> a rkg:DataSource ;
+    rdfs:label "file entropy" .
+
+<https://w3id.org/rkg/id/data-source/file-i-o-patterns> a rkg:DataSource ;
+    rdfs:label "file I/O patterns" .
+
+<https://w3id.org/rkg/id/data-source/intents> a rkg:DataSource ;
+    rdfs:label "intents" .
+
+<https://w3id.org/rkg/id/data-source/memory-artifacts-processes-dlls-injections> a rkg:DataSource ;
+    rdfs:label "memory artifacts (processes; DLLs; injections)" .
+
+<https://w3id.org/rkg/id/data-source/metadata-mac-times> a rkg:DataSource ;
+    rdfs:label "metadata (MAC times)" .
+
+<https://w3id.org/rkg/id/data-source/network-flows> a rkg:DataSource ;
+    rdfs:label "network flows" .
+
+<https://w3id.org/rkg/id/data-source/opcode-density> a rkg:DataSource ;
+    rdfs:label "opcode density" .
+
+<https://w3id.org/rkg/id/data-source/pe-header-as-image> a rkg:DataSource ;
+    rdfs:label "PE header as image" .
+
+<https://w3id.org/rkg/id/data-source/permissions> a rkg:DataSource ;
+    rdfs:label "permissions" .
+
+<https://w3id.org/rkg/id/data-source/storage-i-o-traces-13-features-5-s-windows> a rkg:DataSource ;
+    rdfs:label "storage I/O traces (13 features; 5 s windows)" .
+
+<https://w3id.org/rkg/id/data-source/sysmon-system-logs> a rkg:DataSource ;
+    rdfs:label "Sysmon system logs" .
+
+<https://w3id.org/rkg/id/data-source/system-calls-via-ebpf> a rkg:DataSource ;
+    rdfs:label "system calls via eBPF" .
+
+<https://w3id.org/rkg/id/method-family/heuristic> a rkg:MethodFamily ;
+    rdfs:label "heuristic" .
+
+<https://w3id.org/rkg/id/method-family/llm> a rkg:MethodFamily ;
+    rdfs:label "LLM" .
+
+<https://w3id.org/rkg/id/method/cnn> a rkg:Method ;
+    rdfs:label "CNN" .
+
+<https://w3id.org/rkg/id/method/cnn-lstm-attention-xgboost-pso> a rkg:Method ;
+    rdfs:label "CNN-LSTM-Attention + XGBoost (PSO)" .
+
+<https://w3id.org/rkg/id/method/cnn-lstm-with-attention> a rkg:Method ;
+    rdfs:label "CNN-LSTM with attention" .
+
+<https://w3id.org/rkg/id/method/cnn-xception> a rkg:Method ;
+    rdfs:label "CNN (Xception)" .
+
+<https://w3id.org/rkg/id/method/cuckoo-sandbox> a rkg:Method ;
+    rdfs:label "Cuckoo Sandbox" .
+
+<https://w3id.org/rkg/id/method/decision-tree> a rkg:Method ;
+    rdfs:label "Decision tree" .
+
+<https://w3id.org/rkg/id/method/decision-tree-xgboost> a rkg:Method ;
+    rdfs:label "Decision tree + XGBoost" .
+
+<https://w3id.org/rkg/id/method/ga-k-means> a rkg:Method ;
+    rdfs:label "GA-K-means" .
+
+<https://w3id.org/rkg/id/method/heuristics> a rkg:Method ;
+    rdfs:label "Heuristics" .
+
+<https://w3id.org/rkg/id/method/knn> a rkg:Method ;
+    rdfs:label "KNN" .
+
+<https://w3id.org/rkg/id/method/llm-gpt-2-pre-trained> a rkg:Method ;
+    rdfs:label "LLM (GPT-2) pre-trained" .
+
+<https://w3id.org/rkg/id/method/lstm> a rkg:Method ;
+    rdfs:label "LSTM" .
+
+<https://w3id.org/rkg/id/method/mlp-in-ebpf> a rkg:Method ;
+    rdfs:label "MLP (in eBPF)" .
+
+<https://w3id.org/rkg/id/method/sa-svm-feature-selection> a rkg:Method ;
+    rdfs:label "SA-SVM (feature selection)" .
+
+<https://w3id.org/rkg/id/method/ssim> a rkg:Method ;
+    rdfs:label "SSIM" .
+
+<https://w3id.org/rkg/id/method/transformer-like> a rkg:Method ;
+    rdfs:label "Transformer-like" .
+
+<https://w3id.org/rkg/id/metric/f1-score> a rkg:Metric ;
+    rdfs:label "f1_score" .
+
+<https://w3id.org/rkg/id/metric/roc-auc> a rkg:Metric ;
+    rdfs:label "roc_auc" .
+
+<https://w3id.org/rkg/id/metric/true-positive-rate> a rkg:Metric ;
+    rdfs:label "true_positive_rate" .
+
+<https://w3id.org/rkg/id/metric/zero-day-improvement> a rkg:Metric ;
+    rdfs:label "zero_day_improvement" .
+
+<https://w3id.org/rkg/id/platform/android> a rkg:Platform ;
+    rdfs:label "Android" .
+
+<https://w3id.org/rkg/id/platform/linux> a rkg:Platform ;
+    rdfs:label "Linux" .
+
+<https://w3id.org/rkg/id/platform/network> a rkg:Platform ;
+    rdfs:label "Network" .
+
+<https://w3id.org/rkg/id/result/aljabri2024-accuracy> a rkg:Result ;
+    dct:source "Master thesis table 4.1" ;
+    rkg:metric <https://w3id.org/rkg/id/metric/accuracy> ;
+    rkg:unit "%" ;
+    rkg:value 97.85 .
+
+<https://w3id.org/rkg/id/result/aljabri2024-false-positive-rate> a rkg:Result ;
+    dct:source "Master thesis table 4.1" ;
+    rkg:metric <https://w3id.org/rkg/id/metric/false-positive-rate> ;
+    rkg:unit "%" ;
+    rkg:value 2.0 .
+
+<https://w3id.org/rkg/id/result/baldwin2018-accuracy> a rkg:Result ;
+    dct:source "Master thesis table 4.1" ;
+    rkg:metric <https://w3id.org/rkg/id/metric/accuracy> ;
+    rkg:unit "%" ;
+    rkg:value 96.5 .
+
+<https://w3id.org/rkg/id/result/brodzik2024-f1-score> a rkg:Result ;
+    dct:source "Master thesis table 4.1" ;
+    rkg:condition "lower bound (>95%); 1453x faster inference" ;
+    rkg:metric <https://w3id.org/rkg/id/metric/f1-score> ;
+    rkg:unit "%" ;
+    rkg:value 95.0 .
+
+<https://w3id.org/rkg/id/result/ispahany2025-f2-score> a rkg:Result ;
+    dct:source "Master thesis table 4.1" ;
+    rkg:metric <https://w3id.org/rkg/id/metric/f2-score> ;
+    rkg:unit "%" ;
+    rkg:value 99.65 .
+
+<https://w3id.org/rkg/id/result/kebbas2025-accuracy-deftpunk> a rkg:Result ;
+    dct:source "Engineering thesis table 6.8" ;
+    rkg:condition "5 s windows; final PSO model" ;
+    rkg:metric <https://w3id.org/rkg/id/metric/accuracy> ;
+    rkg:onDataset <https://w3id.org/rkg/id/dataset/deftpunk> ;
+    rkg:unit "%" ;
+    rkg:value 92.87 .
+
+<https://w3id.org/rkg/id/result/kebbas2025-f2-score-deftpunk> a rkg:Result ;
+    dct:source "Engineering thesis table 6.8" ;
+    rkg:condition "5 s windows; final PSO model" ;
+    rkg:metric <https://w3id.org/rkg/id/metric/f2-score> ;
+    rkg:onDataset <https://w3id.org/rkg/id/dataset/deftpunk> ;
+    rkg:unit "%" ;
+    rkg:value 75.97 .
+
+<https://w3id.org/rkg/id/result/kebbas2025-precision-deftpunk> a rkg:Result ;
+    dct:source "Engineering thesis table 6.8" ;
+    rkg:condition "5 s windows; final PSO model" ;
+    rkg:metric <https://w3id.org/rkg/id/metric/precision> ;
+    rkg:onDataset <https://w3id.org/rkg/id/dataset/deftpunk> ;
+    rkg:unit "%" ;
+    rkg:value 70.75 .
+
+<https://w3id.org/rkg/id/result/kebbas2025-recall-deftpunk> a rkg:Result ;
+    dct:source "Engineering thesis table 6.8" ;
+    rkg:condition "5 s windows; final PSO model" ;
+    rkg:metric <https://w3id.org/rkg/id/metric/recall> ;
+    rkg:onDataset <https://w3id.org/rkg/id/dataset/deftpunk> ;
+    rkg:unit "%" ;
+    rkg:value 77.41 .
+
+<https://w3id.org/rkg/id/result/kebbas2025-roc-auc-deftpunk> a rkg:Result ;
+    dct:source "Engineering thesis table 6.8" ;
+    rkg:condition "5 s windows; final PSO model" ;
+    rkg:metric <https://w3id.org/rkg/id/metric/roc-auc> ;
+    rkg:onDataset <https://w3id.org/rkg/id/dataset/deftpunk> ;
+    rkg:unit "%" ;
+    rkg:value 95.95 .
+
+<https://w3id.org/rkg/id/result/lee2025fpe-precision> a rkg:Result ;
+    dct:source "Master thesis table 4.1" ;
+    rkg:condition "FPE-encrypted files" ;
+    rkg:metric <https://w3id.org/rkg/id/metric/precision> ;
+    rkg:unit "%" ;
+    rkg:value 94.64 .
+
+<https://w3id.org/rkg/id/result/maazalahi2024-accuracy> a rkg:Result ;
+    dct:source "Master thesis table 4.1" ;
+    rkg:metric <https://w3id.org/rkg/id/metric/accuracy> ;
+    rkg:unit "%" ;
+    rkg:value 99.5 .
+
+<https://w3id.org/rkg/id/result/moreira2023-accuracy> a rkg:Result ;
+    dct:source "Master thesis table 4.1" ;
+    rkg:metric <https://w3id.org/rkg/id/metric/accuracy> ;
+    rkg:unit "%" ;
+    rkg:value 98.20 .
+
+<https://w3id.org/rkg/id/result/scalas2019-accuracy> a rkg:Result ;
+    dct:source "Master thesis table 4.1" ;
+    rkg:metric <https://w3id.org/rkg/id/metric/accuracy> ;
+    rkg:unit "%" ;
+    rkg:value 99.6 .
+
+<https://w3id.org/rkg/id/result/unveil2016-false-positive-rate> a rkg:Result ;
+    dct:source "Master thesis table 4.1" ;
+    rkg:metric <https://w3id.org/rkg/id/metric/false-positive-rate> ;
+    rkg:unit "%" ;
+    rkg:value 0.0 .
+
+<https://w3id.org/rkg/id/result/unveil2016-true-positive-rate> a rkg:Result ;
+    dct:source "Master thesis table 4.1" ;
+    rkg:metric <https://w3id.org/rkg/id/metric/true-positive-rate> ;
+    rkg:unit "%" ;
+    rkg:value 96.3 .
+
+<https://w3id.org/rkg/id/result/wang2024deftpunk-precision-deftpunk> a rkg:Result ;
+    dct:source "Master thesis table 4.1" ;
+    rkg:metric <https://w3id.org/rkg/id/metric/precision> ;
+    rkg:onDataset <https://w3id.org/rkg/id/dataset/deftpunk> ;
+    rkg:unit "%" ;
+    rkg:value 95.8 .
+
+<https://w3id.org/rkg/id/result/wang2024deftpunk-recall-deftpunk> a rkg:Result ;
+    dct:source "Master thesis table 4.1" ;
+    rkg:condition "approximately (~100%)" ;
+    rkg:metric <https://w3id.org/rkg/id/metric/recall> ;
+    rkg:onDataset <https://w3id.org/rkg/id/dataset/deftpunk> ;
+    rkg:unit "%" ;
+    rkg:value 100.0 .
+
+<https://w3id.org/rkg/id/result/zhao2025erw-accuracy> a rkg:Result ;
+    dct:source "Master thesis table 4.1" ;
+    rkg:condition "evasive samples" ;
+    rkg:metric <https://w3id.org/rkg/id/metric/accuracy> ;
+    rkg:unit "%" ;
+    rkg:value 96.18 .
+
+<https://w3id.org/rkg/id/result/zhou2025srdc-zero-day-improvement> a rkg:Result ;
+    dct:source "Master thesis table 4.1" ;
+    rkg:condition "improvement on zero-day detection" ;
+    rkg:metric <https://w3id.org/rkg/id/metric/zero-day-improvement> ;
+    rkg:unit "% points" ;
+    rkg:value 4.03 .
+
+<https://w3id.org/rkg/id/venue/aaai-2025> a rkg:Venue ;
+    rdfs:label "AAAI 2025" ;
+    rkg:venueType "conference" .
+
+<https://w3id.org/rkg/id/venue/arxiv-1805-09563> a rkg:Venue ;
+    rdfs:label "arXiv:1805.09563" ;
+    rkg:venueType "preprint" .
+
+<https://w3id.org/rkg/id/venue/arxiv-2409-06452> a rkg:Venue ;
+    rdfs:label "arXiv:2409.06452" ;
+    rkg:venueType "preprint" .
+
+<https://w3id.org/rkg/id/venue/computers-14-3> a rkg:Venue ;
+    rdfs:label "Computers 14(3)" ;
+    rkg:venueType "journal" .
+
+<https://w3id.org/rkg/id/venue/computers-security-130> a rkg:Venue ;
+    rdfs:label "Computers & Security 130" ;
+    rkg:venueType "journal" .
+
+<https://w3id.org/rkg/id/venue/cyber-threat-intelligence-springer> a rkg:Venue ;
+    rdfs:label "Cyber Threat Intelligence (Springer)" ;
+    rkg:venueType "book chapter" .
+
+<https://w3id.org/rkg/id/venue/egyptian-informatics-journal-25> a rkg:Venue ;
+    rdfs:label "Egyptian Informatics Journal 25" ;
+    rkg:venueType "journal" .
+
+<https://w3id.org/rkg/id/venue/esi-sba-in-submission> a rkg:Venue ;
+    rdfs:label "ESI-SBA (in submission)" ;
+    rkg:venueType "preprint" .
+
+<https://w3id.org/rkg/id/venue/hitb-security-conference> a rkg:Venue ;
+    rdfs:label "HITB Security Conference" ;
+    rkg:venueType "talk" .
+
+<https://w3id.org/rkg/id/venue/ieee-access> a rkg:Venue ;
+    rdfs:label "IEEE Access" ;
+    rkg:venueType "journal" .
+
+<https://w3id.org/rkg/id/venue/journal-of-ai-and-data-mining-12-1> a rkg:Venue ;
+    rdfs:label "Journal of AI and Data Mining 12(1)" ;
+    rkg:venueType "journal" .
+
+<https://w3id.org/rkg/id/venue/journal-of-telecommunications-and-information-technology> a rkg:Venue ;
+    rdfs:label "Journal of Telecommunications and Information Technology" ;
+    rkg:venueType "journal" .
+
+<https://w3id.org/rkg/id/venue/kdd-2016> a rkg:Venue ;
+    rdfs:label "KDD 2016" ;
+    rkg:venueType "conference" .
+
+<https://w3id.org/rkg/id/venue/machine-learning-20-3> a rkg:Venue ;
+    rdfs:label "Machine Learning 20(3)" ;
+    rkg:venueType "journal" .
+
+<https://w3id.org/rkg/id/venue/machine-learning-45-1> a rkg:Venue ;
+    rdfs:label "Machine Learning 45(1)" ;
+    rkg:venueType "journal" .
+
+<https://w3id.org/rkg/id/venue/ndss-2025> a rkg:Venue ;
+    rdfs:label "NDSS 2025" ;
+    rkg:venueType "conference" .
+
+<https://w3id.org/rkg/id/venue/neural-computation-9-8> a rkg:Venue ;
+    rdfs:label "Neural Computation 9(8)" ;
+    rkg:venueType "journal" .
+
+<https://w3id.org/rkg/id/venue/no-starch-press> a rkg:Venue ;
+    rdfs:label "No Starch Press" ;
+    rkg:venueType "book chapter" .
+
+<https://w3id.org/rkg/id/venue/osdi-2024> a rkg:Venue ;
+    rdfs:label "OSDI 2024" ;
+    rkg:venueType "conference" .
+
+<https://w3id.org/rkg/id/venue/proceedings-of-the-ieee-86-11> a rkg:Venue ;
+    rdfs:label "Proceedings of the IEEE 86(11)" ;
+    rkg:venueType "journal" .
+
+<https://w3id.org/rkg/id/venue/sensors-25-8> a rkg:Venue ;
+    rdfs:label "Sensors 25(8)" ;
+    rkg:venueType "journal" .
+
+<https://w3id.org/rkg/id/venue/usenix-security-2016> a rkg:Venue ;
+    rdfs:label "USENIX Security 2016" ;
+    rkg:venueType "conference" .
+
+<https://w3id.org/rkg/id/method/svm> a rkg:Method ;
+    rdfs:label "SVM" .
+
+<https://w3id.org/rkg/id/method/xgboost> a rkg:Method ;
+    rdfs:label "XGBoost" .
+
+<https://w3id.org/rkg/id/metric/f2-score> a rkg:Metric ;
+    rdfs:label "f2_score" .
+
+<https://w3id.org/rkg/id/metric/false-positive-rate> a rkg:Metric ;
+    rdfs:label "false_positive_rate" .
+
+<https://w3id.org/rkg/id/metric/recall> a rkg:Metric ;
+    rdfs:label "recall" .
+
+<https://w3id.org/rkg/id/platform/cloud> a rkg:Platform ;
+    rdfs:label "Cloud" .
+
+<https://w3id.org/rkg/id/venue/ieee-access-13> a rkg:Venue ;
+    rdfs:label "IEEE Access 13" ;
+    rkg:venueType "journal" .
+
+<https://w3id.org/rkg/id/method-family/hybrid> a rkg:MethodFamily ;
+    rdfs:label "hybrid" .
+
+<https://w3id.org/rkg/id/metric/precision> a rkg:Metric ;
+    rdfs:label "precision" .
+
+<https://w3id.org/rkg/id/analysis-type/static> a rkg:AnalysisType ;
+    rdfs:label "static" .
+
+<https://w3id.org/rkg/id/method-family/dl> a rkg:MethodFamily ;
+    rdfs:label "DL" .
+
+<https://w3id.org/rkg/id/method/random-forest> a rkg:Method ;
+    rdfs:label "Random Forest" .
+
+<https://w3id.org/rkg/id/dataset/deftpunk> a rkg:Dataset ;
+    rdfs:label "DeftPunk" .
+
+<https://w3id.org/rkg/id/metric/accuracy> a rkg:Metric ;
+    rdfs:label "accuracy" .
+
+<https://w3id.org/rkg/id/analysis-type/dynamic> a rkg:AnalysisType ;
+    rdfs:label "dynamic" .
+
+<https://w3id.org/rkg/id/method-family/ml> a rkg:MethodFamily ;
+    rdfs:label "ML" .
+
+<https://w3id.org/rkg/id/platform/windows> a rkg:Platform ;
+    rdfs:label "Windows" .
+

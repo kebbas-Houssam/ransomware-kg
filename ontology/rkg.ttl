@@ -1,0 +1,174 @@
+@prefix rkg:    <https://w3id.org/rkg#> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix dct:    <http://purl.org/dc/terms/> .
+@prefix bibo:   <http://purl.org/ontology/bibo/> .
+@prefix foaf:   <http://xmlns.com/foaf/0.1/> .
+@prefix schema: <https://schema.org/> .
+
+<https://w3id.org/rkg>
+    a owl:Ontology ;
+    rdfs:label "Ransomware Detection Knowledge Graph ontology"@en ;
+    rdfs:comment "A small vocabulary describing ransomware-detection research papers, the approaches and methods they use, and the results they report."@en ;
+    owl:versionInfo "0.1.0" .
+
+#################################################################
+# Classes
+#################################################################
+
+rkg:Paper a owl:Class ;
+    rdfs:subClassOf bibo:Document , schema:ScholarlyArticle ;
+    rdfs:label "Paper"@en ;
+    rdfs:comment "A publication cited in the literature review (article, chapter, preprint, talk...)."@en .
+
+rkg:Author a owl:Class ;
+    rdfs:subClassOf foaf:Person , schema:Person ;
+    rdfs:label "Author"@en ;
+    rdfs:comment "A person who authored at least one paper."@en .
+
+rkg:Venue a owl:Class ;
+    rdfs:label "Venue"@en ;
+    rdfs:comment "The journal, conference, book, archive or event where a paper was published."@en .
+
+rkg:Approach a owl:Class ;
+    rdfs:label "Approach"@en ;
+    rdfs:comment "The overall detection strategy of a paper, e.g. 'Dynamic behavioral' or 'Static structural'."@en .
+
+rkg:AnalysisType a owl:Class ;
+    rdfs:label "Analysis type"@en ;
+    rdfs:comment "Whether an approach analyses samples statically (without execution) or dynamically (at run time)."@en .
+
+rkg:DataSource a owl:Class ;
+    rdfs:label "Data source"@en ;
+    rdfs:comment "The kind of observable data an approach consumes, e.g. file I/O patterns, system calls, PE headers."@en .
+
+rkg:Platform a owl:Class ;
+    rdfs:label "Platform"@en ;
+    rdfs:comment "The target environment of a detector, e.g. Windows, Android, Linux, Cloud, Network."@en .
+
+rkg:Method a owl:Class ;
+    rdfs:label "Method"@en ;
+    rdfs:comment "A concrete algorithm, model or tool, e.g. Random Forest, XGBoost, CNN (Xception)."@en .
+
+rkg:MethodFamily a owl:Class ;
+    rdfs:label "Method family"@en ;
+    rdfs:comment "A coarse category of methods used by a paper: ML, DL, LLM, hybrid or heuristic."@en .
+
+rkg:Dataset a owl:Class ;
+    rdfs:subClassOf schema:Dataset ;
+    rdfs:label "Dataset"@en ;
+    rdfs:comment "A named dataset on which a result was measured."@en .
+
+rkg:Metric a owl:Class ;
+    rdfs:label "Metric"@en ;
+    rdfs:comment "An evaluation measure, e.g. accuracy, precision, recall, F2 score."@en .
+
+rkg:Result a owl:Class ;
+    rdfs:label "Result"@en ;
+    rdfs:comment "A single reported measurement: one metric, one value, optionally on a dataset and under a condition."@en .
+
+#################################################################
+# Object properties
+#################################################################
+
+rkg:hasAuthor a owl:ObjectProperty ;
+    rdfs:subPropertyOf dct:creator ;
+    rdfs:domain rkg:Paper ; rdfs:range rkg:Author ;
+    rdfs:label "has author"@en ;
+    rdfs:comment "Links a paper to one of its authors."@en .
+
+rkg:publishedIn a owl:ObjectProperty ;
+    rdfs:subPropertyOf dct:isPartOf ;
+    rdfs:domain rkg:Paper ; rdfs:range rkg:Venue ;
+    rdfs:label "published in"@en ;
+    rdfs:comment "Links a paper to its publication venue."@en .
+
+rkg:hasApproach a owl:ObjectProperty ;
+    rdfs:domain rkg:Paper ; rdfs:range rkg:Approach ;
+    rdfs:label "has approach"@en ;
+    rdfs:comment "Links a paper to its overall detection approach."@en .
+
+rkg:analysisType a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:domain rkg:Approach ; rdfs:range rkg:AnalysisType ;
+    rdfs:label "analysis type"@en ;
+    rdfs:comment "Static or dynamic nature of an approach."@en .
+
+rkg:analysesData a owl:ObjectProperty ;
+    rdfs:domain rkg:Paper ; rdfs:range rkg:DataSource ;
+    rdfs:label "analyses data"@en ;
+    rdfs:comment "Links a paper to a data source its detector consumes."@en .
+
+rkg:targetsPlatform a owl:ObjectProperty ;
+    rdfs:domain rkg:Paper ; rdfs:range rkg:Platform ;
+    rdfs:label "targets platform"@en ;
+    rdfs:comment "Links a paper to a platform its detector targets."@en .
+
+rkg:usesMethod a owl:ObjectProperty ;
+    rdfs:domain rkg:Paper ; rdfs:range rkg:Method ;
+    rdfs:label "uses method"@en ;
+    rdfs:comment "Links a paper to a method it uses or introduces."@en .
+
+rkg:methodFamily a owl:ObjectProperty ;
+    rdfs:domain rkg:Paper ; rdfs:range rkg:MethodFamily ;
+    rdfs:label "method family"@en ;
+    rdfs:comment "The method family of a paper as a whole (a paper combining ML and DL is 'hybrid')."@en .
+
+rkg:reports a owl:ObjectProperty ;
+    rdfs:domain rkg:Paper ; rdfs:range rkg:Result ;
+    rdfs:label "reports"@en ;
+    rdfs:comment "Links a paper to a result it reports."@en .
+
+rkg:metric a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:domain rkg:Result ; rdfs:range rkg:Metric ;
+    rdfs:label "metric"@en ;
+    rdfs:comment "The evaluation metric a result measures."@en .
+
+rkg:onDataset a owl:ObjectProperty ;
+    rdfs:domain rkg:Result ; rdfs:range rkg:Dataset ;
+    rdfs:label "on dataset"@en ;
+    rdfs:comment "The dataset on which a result was measured, when known."@en .
+
+#################################################################
+# Datatype properties
+#################################################################
+# Reused as-is: dct:title (paper title), dct:issued (xsd:gYear),
+# dct:source (provenance of a result), rdfs:label (names).
+
+rkg:value a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:subPropertyOf schema:value ;
+    rdfs:domain rkg:Result ; rdfs:range xsd:decimal ;
+    rdfs:label "value"@en ;
+    rdfs:comment "Numeric value of a result, expressed in its unit."@en .
+
+rkg:unit a owl:DatatypeProperty ;
+    rdfs:subPropertyOf schema:unitText ;
+    rdfs:domain rkg:Result ; rdfs:range xsd:string ;
+    rdfs:label "unit"@en ;
+    rdfs:comment "Unit of a result value, e.g. '%' or '% points'."@en .
+
+rkg:condition a owl:DatatypeProperty ;
+    rdfs:domain rkg:Result ; rdfs:range xsd:string ;
+    rdfs:label "condition"@en ;
+    rdfs:comment "Free-text experimental condition or caveat attached to a result."@en .
+
+rkg:role a owl:DatatypeProperty ;
+    rdfs:domain rkg:Paper ; rdfs:range xsd:string ;
+    rdfs:label "role"@en ;
+    rdfs:comment "Role of the paper in the review: detection, survey, foundational method, malware analysis or tool."@en .
+
+rkg:venueType a owl:DatatypeProperty ;
+    rdfs:domain rkg:Venue ; rdfs:range xsd:string ;
+    rdfs:label "venue type"@en ;
+    rdfs:comment "Kind of venue: journal, conference, preprint, book chapter, talk."@en .
+
+rkg:thesisRef a owl:DatatypeProperty ;
+    rdfs:domain rkg:Paper ; rdfs:range xsd:integer ;
+    rdfs:label "thesis reference number"@en ;
+    rdfs:comment "Number of the paper in the master's thesis bibliography."@en .
+
+rkg:authorListComplete a owl:DatatypeProperty ;
+    rdfs:domain rkg:Paper ; rdfs:range xsd:boolean ;
+    rdfs:label "author list complete"@en ;
+    rdfs:comment "False when the source only lists the first author(s) followed by 'et al.'."@en .
