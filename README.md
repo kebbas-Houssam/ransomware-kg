@@ -5,6 +5,9 @@ literature review of my master's thesis. **Phase 1** covers the ontology, the
 CSV → RDF pipeline with SHACL validation, a Fuseki triple store and a set of
 example SPARQL queries. **Phase 2** adds question answering over the graph and
 the thesis text (vector, text-to-SPARQL and hybrid RAG) plus a small benchmark.
+**Phase 3** exposes the graph and the thesis index as a read-only **MCP server**,
+adds an **agent** mode and a stricter **hybrid2** mode, a **Streamlit UI**, and
+measures everything on the original questions and on a held-out set.
 
 ## Goal
 
@@ -235,7 +238,7 @@ make ingest                                # -> index/ (git-ignored)
 make bench                                 # -> results/benchmark.md
 ```
 
-### Benchmark
+### Benchmark (phase 2)
 
 `bench/questions.yaml` holds 15 questions (10 EN, 5 FR): 5 factual, 4
 counting, 3 comparison and 3 "why". Each one's expected values can be checked
@@ -275,3 +278,152 @@ What the failures show:
   steps: a stronger model (`LLM_PROVIDER=anthropic`), putting the graph facts
   last and making them mandatory, or answering numeric questions straight from
   the rows.
+
+## Phase 3: MCP server, agent, hybrid2, UI
+
+```mermaid
+flowchart LR
+    U([question FR/EN]) --> UI[ui/app.py<br/>Streamlit] & CLI[python -m rag.ask]
+    UI --> ASK
+    CLI --> ASK[rag/ask.py<br/>vector · sparql · hybrid · hybrid2 · agent]
+    ASK -- agent --> AG[rag/agent.py<br/>tool loop, ≤ 6 calls]
+    AG <-- "MCP stdio<br/>(official client)" --> MCP
+    CD([Claude Desktop]) <-- MCP stdio --> MCP
+    subgraph MCP[mcp_server/ · read-only tools]
+      T1[get_schema] & T2[sparql_select<br/>SELECT/ASK, LIMIT 100] & T3[search_papers] & T4[get_paper] & T5[get_results] & T6[search_thesis]
+    end
+    T1 & T2 & T3 & T4 & T5 --> FUS[(Fuseki /rkg)]
+    T6 --> IDX[(index/ FAISS)]
+    ASK -- hybrid2 --> H2{SPARQL rows?}
+    H2 -- yes --> R[numbers from rows<br/>passages explain]
+    H2 -- no --> N["'the graph has no data'<br/>+ passages, no invented numbers"]
+    LLM{{Ollama qwen2.5:7b}} -.-> AG & ASK
+```
+
+### MCP server (`mcp_server/`)
+
+Built with the official MCP Python SDK. In SDK 2.x the high-level API formerly
+called `FastMCP` is named `MCPServer`; it's the same thing, and this repo uses
+`mcp==2.3.0`. It runs over stdio and every tool is annotated
+`readOnlyHint: true`:
+
+| Tool | What it does |
+|---|---|
+| `get_schema()` | prefixes, classes, properties (domain → range), the exact labels in the graph, roles, paper list |
+| `sparql_select(query)` | parsed with rdflib first. Only `SELECT`/`ASK` are accepted; SPARQL Update, `CONSTRUCT` and `DESCRIBE` are rejected. A `SELECT` without `LIMIT` gets `LIMIT 100` |
+| `search_papers(text)` | papers matching the most words (title, authors, venue, approach, methods, data, platform) |
+| `get_paper(id)` | full record of one paper, including its results |
+| `get_results(paper_id?, metric?, dataset?)` | filtered results with unit, condition and source table |
+| `search_thesis(query, k)` | passages from the thesis chapter with printed pages and cited paper ids |
+
+Values passed to the tools are validated (paper ids must be `[a-z0-9]+`) or
+escaped as SPARQL literals, so they cannot inject SPARQL.
+
+```sh
+make mcp     # = .venv/bin/python -m mcp_server  (stdio; needs `make up load`, `make ingest` for search_thesis)
+```
+
+**Claude Desktop:** add this to `~/Library/Application Support/Claude/claude_desktop_config.json`
+(Windows: `%APPDATA%\Claude\claude_desktop_config.json`), using absolute
+paths, then restart Claude Desktop:
+
+```json
+{
+  "mcpServers": {
+    "ransomware-kg": {
+      "command": "/path/to/ransomware-kg/.venv/bin/python",
+      "args": ["/path/to/ransomware-kg/mcp_server/server.py"],
+      "env": { "FUSEKI_URL": "http://localhost:3030" }
+    }
+  }
+}
+```
+
+The server finds the repo from its own path, so it doesn't depend on Claude
+Desktop's working directory. Fuseki has to be running (`make up`).
+
+### New answer modes
+
+- **agent** (`rag/agent.py`) starts the MCP server as a subprocess and talks
+  to it through the official MCP client. qwen2.5:7b calls the tools through
+  Ollama's tool calling. After 6 tool calls the tools are withdrawn and the
+  model must write its answer, citing paper ids and pages. The UI and
+  `--show-context` list every tool call. Agent mode works with
+  `LLM_PROVIDER=ollama` only for now.
+- **hybrid2** (in `rag/ask.py`; `hybrid` is unchanged). The design comes from
+  the phase 2 error analysis, where hybrid often ignored correct graph rows:
+  - **When the SPARQL query returns rows:** the rows go last in the prompt and
+    count as ground truth for every number, and the passages only explain. A
+    deterministic check follows. If the answer doesn't contain the row's
+    numbers (all of them for a single-row count or value, at least one for a
+    list), the rows are stated first ("Knowledge graph: count = 9").
+  - **When it returns no rows:** the answer starts with a fixed sentence, "The
+    knowledge graph has no data for this question." / "Le graphe de
+    connaissances ne contient pas de données…". The model then sees only
+    passages, and any sentence giving a decimal or a percentage that no passage
+    contains is removed.
+
+### UI
+
+```sh
+make ui      # = .venv/bin/streamlit run ui/app.py  → http://localhost:8501
+```
+
+The UI has a question box, a mode selector, the answer, and the sources: cited
+paper ids with their titles, and cited thesis pages. A ⚠️ marks any citation
+that wasn't in the model's context. Expanders show the generated SPARQL with
+its rows, the agent's tool calls, and the retrieved passages.
+
+### Benchmark (phase 3)
+
+Run once on 2026-11-19 with Ollama `qwen2.5:7b`. Scoring is the same as in
+phase 2. Per-question tables are in [results/benchmark.md](results/benchmark.md).
+
+**Original 15 (used for error analysis)**
+
+| Mode | Accuracy | Answers with citations | Avg latency (s) |
+|---|---|---|---|
+| vector | 27% (4/15) | 93% | 14.3 |
+| sparql | 40% (6/15) | 7% | 12.6 |
+| hybrid | 47% (7/15) | 87% | 24.5 |
+| hybrid2 | 53% (8/15) | 80% | 30.9 |
+| agent | 67% (10/15) | 60% | 6.6 |
+
+**Held-out 10 (never used for tuning)**
+
+| Mode | Accuracy | Answers with citations | Avg latency (s) |
+|---|---|---|---|
+| vector | 80% (8/10) | 100% | 15.2 |
+| sparql | 40% (4/10) | 20% | 9.2 |
+| hybrid | 80% (8/10) | 90% | 21.6 |
+| hybrid2 | 90% (9/10) | 90% | 23.1 |
+| agent | 30% (3/10) | 50% | 9.0 |
+
+Honest notes:
+
+- **The agent doesn't generalise.** It was best on the original set (67%)
+  and worst on the held-out set (30%). It nearly always makes a single tool
+  call and invents paper ids (`aljabri2024memory`, `scalas2023android`)
+  instead of looking them up with `search_papers`. It then reports "no data"
+  when the result comes back empty. Part of its original-set score comes from
+  a fix I made while testing on q08: `search_papers` now ranks partial matches
+  instead of requiring every word. That fix was informed by the original set,
+  and the held-out set shows it doesn't carry over. A 7B model doesn't plan
+  multi-step tool use reliably; a stronger model is the obvious next test.
+- **hybrid2 does what it was built for.** On the original set it fixed the
+  three phase 2 failures where hybrid ignored correct rows (q01, q08, q09), and
+  it was the best mode on the held-out set (9/10). Its weak point is that it
+  trusts the rows: on h05 the generated SPARQL was wrong and returned
+  `count = 0`, and that 0 was enforced.
+- **The two sets are not equally hard.** Vector-only scores 80% on the
+  held-out set but 27% on the original. Most held-out values and "why" answers
+  are written out in chapter 4, while the original set has more counting and
+  cross-paper questions, which only the graph can answer. With 10 and 15
+  questions, one run, and a model whose wording changes between runs, a
+  difference of one or two questions is noise.
+- **The phase 2 modes reproduced exactly** (vector 4, sparql 6, hybrid 7 out
+  of 15), so the phase 3 refactor didn't change their behaviour.
+- **I saw the held-out questions before building phase 3.** You pasted the
+  file for me to commit, and it was committed (`7edfedc`) before any phase 3
+  code. No prompt, rule, example or tool was designed from those questions,
+  and nothing was changed after seeing the held-out results.

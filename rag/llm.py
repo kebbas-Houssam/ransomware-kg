@@ -22,6 +22,20 @@ class LLM:
     def complete(self, system: str, user: str, max_tokens: int = 2048) -> str:
         return getattr(self, f"_{self.provider}")(system, user, max_tokens).strip()
 
+    def chat(self, messages: list[dict], tools: list[dict] | None = None,
+             max_tokens: int = 700, num_ctx: int = 16384) -> dict:
+        """One chat turn with optional tool definitions (OpenAI/Ollama format).
+        Returns the assistant message: {"content": str, "tool_calls": [...]}."""
+        if self.provider != "ollama":
+            raise NotImplementedError("agent mode currently supports LLM_PROVIDER=ollama only")
+        body = {"model": self.model, "stream": False, "messages": messages,
+                "options": {"temperature": 0, "num_predict": max_tokens, "num_ctx": num_ctx}}
+        if tools:
+            body["tools"] = tools
+        r = requests.post(f"{config.OLLAMA_HOST}/api/chat", json=body, timeout=600)
+        r.raise_for_status()
+        return r.json()["message"]
+
     def _ollama(self, system: str, user: str, max_tokens: int) -> str:
         r = requests.post(f"{config.OLLAMA_HOST}/api/chat", timeout=600, json={
             "model": self.model,

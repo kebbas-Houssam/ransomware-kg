@@ -5,6 +5,8 @@ faiss-cpu==1.16.0
 PyYAML==6.0.3
 requests==2.34.2
 python-dotenv==1.2.4
+mcp==2.3.0
+streamlit==1.67.0
 # optional LLM backends (only if LLM_PROVIDER is set to them):
 # anthropic
 # openai

@@ -80,35 +80,46 @@ def run_sparql(query: str) -> list[dict]:
 
 
 @lru_cache(maxsize=1)
-def schema_prompt() -> str:
+def schema_info() -> dict:
     """Ontology classes/properties + the controlled vocabulary actually in the graph."""
     g = Graph().parse(config.ONTOLOGY)
     short = lambda u: g.namespace_manager.normalizeUri(u)  # noqa: E731
     comment = lambda u: str(g.value(u, RDFS.comment) or "")  # noqa: E731
-    classes = [f"- {short(c)}: {comment(c)}" for c in sorted(g.subjects(RDF.type, OWL.Class))]
+    classes = [{"name": short(c), "comment": comment(c)} for c in sorted(g.subjects(RDF.type, OWL.Class))]
     props = []
     for kind in (OWL.ObjectProperty, OWL.DatatypeProperty):
         for p in sorted(set(g.subjects(RDF.type, kind))):
-            props.append(f"- {short(p)} ({short(g.value(p, RDFS.domain))} -> "
-                         f"{short(g.value(p, RDFS.range))}): {comment(p)}")
-    props += ["- dct:title (rkg:Paper -> string)", "- dct:issued (rkg:Paper -> xsd:gYear)",
-              "- dct:source (rkg:Result -> string): table the number comes from",
-              "- bibo:volume / bibo:issue / bibo:identifier (rkg:Paper -> string)",
-              "- rdfs:label: name of every entity except Paper and Result"]
-
-    vocab = []
+            props.append({"name": short(p), "domain": short(g.value(p, RDFS.domain)),
+                          "range": short(g.value(p, RDFS.range)), "comment": comment(p)})
+    extra_props = ["- dct:title (rkg:Paper -> string)", "- dct:issued (rkg:Paper -> xsd:gYear)",
+                   "- dct:source (rkg:Result -> string): table the number comes from",
+                   "- bibo:volume / bibo:issue / bibo:identifier (rkg:Paper -> string)",
+                   "- rdfs:label: name of every entity except Paper and Result"]
+    labels = {}
     for cls in ["AnalysisType", "MethodFamily", "Platform", "Metric", "Dataset", "Method", "DataSource"]:
-        labels = [r["l"] for r in run_sparql(
+        labels[f"rkg:{cls}"] = [r["l"] for r in run_sparql(
             f"{PREFIXES} SELECT ?l WHERE {{ ?x a rkg:{cls} ; rdfs:label ?l }} ORDER BY ?l")]
-        vocab.append(f"- rkg:{cls}: " + "; ".join(json.dumps(l, ensure_ascii=False) for l in labels))
     roles = [r["r"] for r in run_sparql(f"{PREFIXES} SELECT DISTINCT ?r WHERE {{ ?p rkg:role ?r }}")]
-    vocab.append("- rkg:role values: " + "; ".join(json.dumps(r) for r in roles))
     papers = run_sparql(f"""{PREFIXES}
         SELECT ?id ?year ?title (GROUP_CONCAT(?a; separator=", ") AS ?authors) WHERE {{
           ?p a rkg:Paper ; dct:title ?title ; dct:issued ?year ; rkg:hasAuthor/rdfs:label ?a .
           BIND(STRAFTER(STR(?p), "/paper/") AS ?id) }} GROUP BY ?id ?year ?title ORDER BY ?id""")
-    paper_lines = [f"- {p['id']}: {p['authors']} ({p['year']}) {p['title'][:90]}" for p in papers]
+    return {"prefixes": PREFIXES, "classes": classes, "properties": props,
+            "other_properties": [line[2:] for line in extra_props], "labels": labels,
+            "roles": roles, "papers": papers,
+            "paper_uri_pattern": "https://w3id.org/rkg/id/paper/<ID>"}
 
+
+@lru_cache(maxsize=1)
+def schema_prompt() -> str:
+    info = schema_info()
+    classes = [f"- {c['name']}: {c['comment']}" for c in info["classes"]]
+    props = [f"- {p['name']} ({p['domain']} -> {p['range']}): {p['comment']}" for p in info["properties"]]
+    props += [f"- {line}" for line in info["other_properties"]]
+    vocab = [f"- {cls}: " + "; ".join(json.dumps(l, ensure_ascii=False) for l in labels)
+             for cls, labels in info["labels"].items()]
+    vocab.append("- rkg:role values: " + "; ".join(json.dumps(r) for r in info["roles"]))
+    paper_lines = [f"- {p['id']}: {p['authors']} ({p['year']}) {p['title'][:90]}" for p in info["papers"]]
     return "\n".join([
         "Prefixes:", PREFIXES, "", "Classes:", *classes, "", "Properties:", *props, "",
         "Labels present in the graph (match them exactly, case-sensitive):", *vocab, "",
